@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>amiracle web</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9acb, #ffc1dd);
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: 0.8s ease;
+    }
+
+    /* PAGE 1 */
+    #page1 h1 {
+      font-size: 48px;
+      color: white;
+      margin-bottom: 25px;
+    }
+
+    .name-input {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid white;
+      color: white;
+      font-size: 18px;
+      text-align: center;
+      padding: 10px;
+      outline: none;
+      width: 220px;
+    }
+
+    .name-input::placeholder {
+      color: rgba(255,255,255,0.8);
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 10px 30px;
+      border-radius: 25px;
+      border: none;
+      background: white;
+      color: #ff5fa2;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    /* PAGE 2 */
+    #page2 {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #page2 h1 {
+      font-size: 32px;
+      color: white;
+      text-align: center;
+      white-space: pre-line;
+      z-index: 2;
+    }
+
+    /* balon */
+    .balloon {
+      position: absolute;
+      bottom: -120px;
+      width: 50px;
+      height: 70px;
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: float 9s infinite linear;
+    }
+
+    .b1 { left: 15%; background: #ff6fb1; }
+    .b2 { left: 35%; background: #ffd1e8; animation-duration: 11s; }
+    .b3 { left: 55%; background: #ff9acb; animation-duration: 10s; }
+    .b4 { left: 75%; background: #ffc1dd; animation-duration: 12s; }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-120vh); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 -->
+  <div class="page" id="page1">
+    <h1>Hello</h1>
+    <input id="nameInput" class="name-input" placeholder="enter name">
+    <button onclick="nextPage()">continue</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page" id="page2">
+    <h1 id="text"></h1>
+
+    <div class="balloon b1"></div>
+    <div class="balloon b2"></div>
+    <div class="balloon b3"></div>
+    <div class="balloon b4"></div>
+  </div>
+
+  <script>
+    function nextPage() {
+      var name = document.getElementById("nameInput").value;
+      if (name === "") return;
+
+      document.getElementById("page1").style.opacity = "0";
+
+      setTimeout(function () {
+        document.getElementById("page1").style.display = "none";
+        document.getElementById("page2").style.opacity = "1";
+        document.getElementById("page2").style.pointerEvents = "auto";
+        typeText(
+          "haloo, selamat malam " + name + ".\nsemangat yaa!",
+          document.getElementById("text")
+        );
+      }, 600);
+    }
+
+    function typeText(text, el) {
+      var i = 0;
+      el.innerHTML = "";
+      var timer = setInterval(function () {
+        el.innerHTML += text.charAt(i);
+        i++;
+        if (i >= text.length) clearInterval(timer);
+      }, 70);
+    }
+  </script>
+
+</body>
+</html>
